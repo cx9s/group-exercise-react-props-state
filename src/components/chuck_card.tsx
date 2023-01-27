@@ -6,11 +6,11 @@ interface ChuckCardProps {
 }
 
 const ChuckCard: React.FC<ChuckCardProps> = (props) => (
-  <div>
+  <>
     <h2>{props.greetingText}</h2>
 
     <img src={ChuckImage} alt="A handsome man" />
-  </div>
+  </>
 );
 
 export default ChuckCard;

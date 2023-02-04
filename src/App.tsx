@@ -4,7 +4,6 @@ import ChuckCard from "./components/chuck_card";
 import ChuckInfo from "./components/chuck_info";
 import Joke from "./joke";
 import ChunkJokes from "./components/chuck_jokes";
-import FilteredJokes from "./components/filtered_jokes";
 
 function App() {
   const [chuckGreeting, setChuckGreeting] = useState<string>(
@@ -30,7 +29,8 @@ function App() {
       joke: "Chuck Norris does not own a stove, oven, or microwave, because revenge is a dish best served cold.",
     },
   ]);
-  const [filterCondition, setFilterCondition] = useState<string>("joke.id===3");
+  const [filteredIds, setFilteredIds] = useState<number[]>([3]);
+  const filteredJks = jokes.filter((joke) => filteredIds.includes(joke.id));
 
   return (
     <div className="App">
@@ -41,10 +41,13 @@ function App() {
       <ChuckInfo whalesSaved={whalesSaved} roundHouseKicks={roundHouseKicks} />
 
       <h2>Jokes: </h2>
-      <ChunkJokes jokes={jokes} />
+      <ChunkJokes jokes={jokes} jokeType={"all"} />
 
-      {jokes.some((joke) => eval(filterCondition)) && (
-        <FilteredJokes jokes={jokes} condition={filterCondition} />
+      {filteredJks.length > 0 && (
+        <>
+          <h2>Filtered Jokes: </h2>
+          <ChunkJokes jokes={filteredJks} jokeType={"filtered"} />
+        </>
       )}
     </div>
   );
